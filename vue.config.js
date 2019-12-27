@@ -1,5 +1,5 @@
 module.exports = {
-    baseUrl: './',
+    publicPath: './',
     assetsDir: 'static',
     productionSourceMap: false,
     devServer: {
@@ -11,9 +11,9 @@ module.exports = {
         //         changeOrigin:true,
         //         pathRewrite:{
         //             '/api':''
-        //         } 
+        //         }
         //     }
-        // }  
+        // }
     },
     lintOnSave:false, //process.env.NODE_ENV !== 'production', //在生产环境时开启eslint-loader(代码格式检查)
     configureWebpack: config => {

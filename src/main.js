@@ -2,8 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import ElementUI from 'element-ui';
+import MyTool from './utils/index';//工具类
 import VueI18n from 'vue-i18n';
-import { messages } from './components/common/i18n';
+import {messages} from './components/common/i18n';
 import NProgress from 'nprogress'; //网页上方进度条
 import 'nprogress/nprogress.css'; //网页上方进度条css
 import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
@@ -14,6 +15,7 @@ import 'babel-polyfill';
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
+Vue.use(MyTool);
 Vue.use(ElementUI, {
     size: 'small'
 });
@@ -24,10 +26,7 @@ const i18n = new VueI18n({
 
 // 简单配置
 // NProgress.inc(0.2)
-NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false });
-
-
-
+NProgress.configure({easing: 'ease', speed: 500, showSpinner: false});
 
 
 new Vue({
@@ -37,15 +36,13 @@ new Vue({
 }).$mount('#app');
 
 
-
-
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     // NProgress.done(true);
     console.log('进入了');
     document.title = `${to.meta.title} | manage-system`;
     const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login'&&to.path !== '/404'&&to.path !== '/403') {
+    if (!role && to.path !== '/login' && to.path !== '/404' && to.path !== '/403') {
         next('/login');
     } else if (to.meta.permission) {
         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
@@ -72,7 +69,7 @@ router.afterEach(transition => {
     //不加这个进度条会不知道什么原因的卡主
     Vue.nextTick(() => {
         NProgress.done();
-    }); 
+    });
     // setTimeout(() => {
     //     // console.log(transition)
     // }, 100);
